@@ -1,0 +1,16 @@
+function [ output_args ] = testParse( a )
+%TESTPARSE Summary of this function goes here
+%   Detailed explanation goes here
+    p = inputParser;
+    
+    p.addRequired('a');
+    p.addOptional('b',1);
+    p.addParamValue('c', 2);
+    
+    p.parse(10, 20, 'c', 30);
+    res = p.Results
+    
+
+
+end
+
