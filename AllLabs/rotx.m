@@ -1,8 +1,8 @@
 % Function to create a 4x4 rotation matrix around the x axis
-% for an angle in degrees, accepts negative and positive angles.
+% for an angle in radians, accepts negative and positive angles.
 %
 % Usage:  result = rotx(angle)
-% Where:  angle is an angle in degrees being -ve or +ve but not 0.
+% Where:  angle is an angle in radians being -ve or +ve but not 0.
 %
 %         result = 4x4 Matrix representing the rotation of the specified
 %         angle around the x axis.
@@ -16,21 +16,33 @@ function [T] = rotx(varargin)
     try
         p.parse(varargin{:});
     catch exception
-        disp(exception.identifier);
+        % disp(exception.identifier); % Debug catching correct errors
+        % Only one numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
             warning('rotx only takes one integer parameter')
         end
+        % Must be a numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:ArgumentFailedValidation')
             error('Bad arguement, must be a numeric symbol and cannot be 0')
         end
-        MATLAB:InputParser:MustBeChar
-        MATLAB:InputParser:ParamMissingValue
-        MATLAB:minrhs
+        % Does not allow parameters (inputParser parameters)
+        if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
+            error('Bad arguement, must be a numeric symbol and cannot be 0')
+        end
+        % Does not allow parameters (inputParser parameters)
+        if strcmp(exception.identifier, 'MATLAB:InputParser:ParamMissingValue')
+            error('Bad arguement, must be a numeric symbol and cannot be 0')
+        end
+        % Must have a numeric parameter
+        if strcmp(exception.identifier, 'MATLAB:minrhs')
+            error('Bad arguement, must be a numeric symbol and cannot be 0')
+        end
+        
+        
             
     end
-    angle = p.Results.angle;
+    rangle = p.Results.angle;
     
-    rangle = angle * pi / 180;
     T = [1, 0, 0, 0
          0, cos(rangle), -sin(rangle), 0
          0, sin(rangle), cos(rangle), 0
