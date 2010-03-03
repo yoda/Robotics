@@ -11,9 +11,11 @@
 function [T] = rotx(varargin)
     % Parse the parameter to make sure its within the constraints
     p = inputParser;
+    % All numerics that are not equal to 0 are valid
     p.addRequired('angle', @(x)x ~= 0 && isa(x, 'numeric'));
     
     try
+        % Do the validation of the parameters
         p.parse(varargin{:});
     catch exception
         % disp(exception.identifier); % Debug catching correct errors
@@ -36,13 +38,12 @@ function [T] = rotx(varargin)
         % Must have a numeric parameter
         if strcmp(exception.identifier, 'MATLAB:minrhs')
             error('Bad arguement, must be a numeric symbol and cannot be 0')
-        end
-        
-        
-            
+        end 
     end
+    
     rangle = p.Results.angle;
     
+    % Return T
     T = [1, 0, 0, 0
          0, cos(rangle), -sin(rangle), 0
          0, sin(rangle), cos(rangle), 0
