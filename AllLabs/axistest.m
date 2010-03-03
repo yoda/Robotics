@@ -16,5 +16,5 @@ hold on;
 
 
 x = eye(4);
-x = x * trans(2,2,2);
+x = x * trans(1,1,2);
 plotframe(x, 1, 'a')

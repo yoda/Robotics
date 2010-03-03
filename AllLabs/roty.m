@@ -7,7 +7,6 @@
 %         result = 4x4 Matrix representing the rotation of the specified
 %         angle around the x axis.
 %
-
 function [T] = roty(varargin)
     % Parse the parameter to make sure its within the constraints
     p = inputParser;
