@@ -12,7 +12,7 @@ function [T] = rotx(varargin)
     % Parse the parameter to make sure its within the constraints
     p = inputParser;
     % All numerics that are not equal to 0 are valid
-    p.addRequired('angle', @(x)x ~= 0 && isa(x, 'numeric'));
+    p.addRequired('angle', @(x)isa(x, 'numeric'));
     
     try
         % Do the validation of the parameters

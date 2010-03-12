@@ -40,7 +40,7 @@ function plotframe(varargin)
         end
         % Must have a numeric parameter
         if strcmp(exception.identifier, 'MATLAB:minrhs')
-            error('trans takes 3 numeric parameters')
+            error('plotframe takes 3 numeric parameters')
         end 
     end
     
