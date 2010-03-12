@@ -21,7 +21,7 @@ function puma3dof( varargin )
         p.addRequired('theta1', @(a)isnumeric(a));
         p.addRequired('theta2', @(a)isnumeric(a));
         p.addRequired('theta3', @(a)isnumeric(a));
-        
+        p.addParamValue('coordframe', [],@(y)(y==0 || y==1));
 
     try
         % Do the validation of the parameters
@@ -85,6 +85,8 @@ function puma3dof( varargin )
     lT3 = T3 * orig;
     plotframe(T3, 'len', 2, 'label', {'-3', '-3', '-3'});    
     line([lT2(1,1), lT3(1,1)],[lT2(2,1), lT3(2,1)],[lT2(3,1),lT3(3,1)], 'linewidth', 2, 'color', 'magenta');
+    
+    
 
 end
 
