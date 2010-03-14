@@ -74,6 +74,7 @@ function puma3dof( varargin )
     hold on;                               % freeze the current axis settings
     grid on;
     
+    % Base (Link 1, Joint 1)
     T1 = DHtrans(theta1, offset1, 0, pi/2);
     if coordon == 1
         plotframe(DHtrans(theta1, 0, 0, 0), 'len', 2, 'label', {'-base', '-base', '-base'});   % draw xyz at base
@@ -92,6 +93,7 @@ function puma3dof( varargin )
         line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta'); % Line from base to point 1
     end
     
+    % Link 2 Joint 2
     T2 = DHtrans(theta2, 0, link2len, 0);
     T2 = T1 * T2;
     if coordon == 1
@@ -111,7 +113,7 @@ function puma3dof( varargin )
         line([0,lT2(1,1)],[0,lT2(2,1)],[offset1,lT2(3,1)], 'linewidth', 2, 'color', 'magenta');
     end
     
-    
+    % Link 3 Joint 3
     T3 = DHtrans(theta3, 0, link3len, 0);
     T3 = T2 * T3;
     lT3 = T3 * orig;
