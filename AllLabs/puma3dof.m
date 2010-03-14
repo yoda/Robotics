@@ -11,9 +11,9 @@
 function puma3dof( varargin )
 
     
-    offset1 = 5; 
-    offset2 = 0; 
-    offset3 = 0;
+    offset1 = 5; % also link1 length 
+    link2len = 3; 
+    link3len = 2;
     
     orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 
@@ -92,7 +92,7 @@ function puma3dof( varargin )
         line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta'); % Line from base to point 1
     end
     
-    T2 = DHtrans(theta2, offset2, 3, 0);
+    T2 = DHtrans(theta2, 0, link2len, 0);
     T2 = T1 * T2;
     if coordon == 1
         plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
@@ -112,7 +112,7 @@ function puma3dof( varargin )
     end
     
     
-    T3 = DHtrans(theta3, offset3, 3, 0);
+    T3 = DHtrans(theta3, 0, link3len, 0);
     T3 = T2 * T3;
     lT3 = T3 * orig;
     
