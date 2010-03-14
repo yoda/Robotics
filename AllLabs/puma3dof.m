@@ -55,6 +55,11 @@ function puma3dof( varargin )
     theta2 = p.Results.theta2;
     theta3 = p.Results.theta3;
     
+    cyllinkradius = 0.3;
+    cyljointradius = 0.6;
+    
+    colormap(copper);
+    
     XMIN = -10;
     XMAX = 10;
     YMIN = -10;
@@ -68,14 +73,30 @@ function puma3dof( varargin )
     
     T1 = DHtrans(theta1, offset1, 0, pi/2);
     plotframe(DHtrans(theta1, 0, 0, 0), 'len', 2, 'label', {'-base', '-base', '-base'});   % draw xyz at base
-    plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'});    
-    line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta');
+    
+    zcylinder(cyljointradius, 0, offset1/8,0.1, 20); % Base joint cylinder
+    zcylinder(cyllinkradius, 0, offset1,0.1, 20); % Base tower joint cylinder
+    
+    plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'}); % Top Base tower joint coord   
+    
+    xcylinder(cyljointradius, -offset1/8, offset1/8,0.1, 20, T1 * roty(pi/2)); % Top Base tower joint cylinder
+    
+    line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta'); % Line from base to point 1
     
     
     T2 = DHtrans(theta2, offset2, 3, 0);
     T2 = T1 * T2;
     plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
+    
+    
     lT2 = T2 * orig; 
+    
+    X = [0,0,offset1];
+    Y = [lT2(1,1), lT2(2,1), lT2(3,1)];
+    d = sqrt((X(1)-Y(1))^2 + (X(2)-Y(2))^2 + (X(3)-Y(3))^2);
+    
+    xcylinder(cyllinkradius, 0, -d,0.1, 20, T2); % point 1 to point 2
+    
     line([0,lT2(1,1)],[0,lT2(2,1)],[offset1,lT2(3,1)], 'linewidth', 2, 'color', 'magenta');
     disp(lT2);
     
