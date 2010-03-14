@@ -54,6 +54,8 @@ function puma3dof( varargin )
     theta1 = p.Results.theta1;
     theta2 = p.Results.theta2;
     theta3 = p.Results.theta3;
+    coordon = p.Results.coordframe;
+    
     
     cyllinkradius = 0.3;
     cyljointradius = 0.6;
@@ -72,22 +74,28 @@ function puma3dof( varargin )
     grid on;
     
     T1 = DHtrans(theta1, offset1, 0, pi/2);
-    plotframe(DHtrans(theta1, 0, 0, 0), 'len', 2, 'label', {'-base', '-base', '-base'});   % draw xyz at base
+    if coordon == 1
+        plotframe(DHtrans(theta1, 0, 0, 0), 'len', 2, 'label', {'-base', '-base', '-base'});   % draw xyz at base
+    end
     
     zcylinder(cyljointradius, 0, offset1/8,0.1, 20); % Base joint cylinder
     zcylinder(cyllinkradius, 0, offset1,0.1, 20); % Base tower joint cylinder
     
-    plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'}); % Top Base tower joint coord   
+    if coordon == 1
+        plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'}); % Top Base tower joint coord   
+    end
     
-    xcylinder(cyljointradius, -offset1/8, offset1/8,0.1, 20, T1 * roty(pi/2)); % Top Base tower joint cylinder
+    xcylinder(cyljointradius, -offset1/8, offset1/8,0.1, 20, T1 * roty(pi/2)); % point 1 joint cylinder
     
-    line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta'); % Line from base to point 1
-    
+    if coordon == 1
+        line([0,0],[0,0],[0,offset1], 'linewidth', 2, 'color', 'magenta'); % Line from base to point 1
+    end
     
     T2 = DHtrans(theta2, offset2, 3, 0);
     T2 = T1 * T2;
-    plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
-    
+    if coordon == 1
+        plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
+    end
     
     lT2 = T2 * orig; 
     
@@ -96,16 +104,27 @@ function puma3dof( varargin )
     d = sqrt((X(1)-Y(1))^2 + (X(2)-Y(2))^2 + (X(3)-Y(3))^2);
     
     xcylinder(cyllinkradius, 0, -d,0.1, 20, T2); % point 1 to point 2
+    xcylinder(cyljointradius, -offset1/8, offset1/8,0.1, 20, T2 * roty(pi/2)); %  point 2 joint cylinder
     
-    line([0,lT2(1,1)],[0,lT2(2,1)],[offset1,lT2(3,1)], 'linewidth', 2, 'color', 'magenta');
-    disp(lT2);
+    if coordon == 1
+        line([0,lT2(1,1)],[0,lT2(2,1)],[offset1,lT2(3,1)], 'linewidth', 2, 'color', 'magenta');
+    end
     
     
     T3 = DHtrans(theta3, offset3, 3, 0);
     T3 = T2 * T3;
     lT3 = T3 * orig;
-    plotframe(T3, 'len', 2, 'label', {'-3', '-3', '-3'});    
-    line([lT2(1,1), lT3(1,1)],[lT2(2,1), lT3(2,1)],[lT2(3,1),lT3(3,1)], 'linewidth', 2, 'color', 'magenta');
+    
+    A = [lT2(1,1), lT2(2,1), lT2(3,1)];
+    B = [lT3(1,1), lT3(2,1), lT3(3,1)];
+    q = sqrt((A(1)-B(1))^2 + (A(2)-B(2))^2 + (A(3)-B(3))^2);
+    
+    xcylinder(cyllinkradius, 0, -q,0.1, 20, T3); % point 2 to point 3
+    
+    if coordon == 1
+        plotframe(T3, 'len', 2, 'label', {'-3', '-3', '-3'});    
+        line([lT2(1,1), lT3(1,1)],[lT2(2,1), lT3(2,1)],[lT2(3,1),lT3(3,1)], 'linewidth', 2, 'color', 'magenta');
+    end
     
     
 
