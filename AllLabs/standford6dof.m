@@ -125,7 +125,7 @@ function standford6dof( varargin )
  
     
     % Joint 3
-    T4 = DHtrans(theta3, 0, 0, -pi/2);
+    T4 = DHtrans(theta3, 0, 0, pi/2);
     T4 = T3 * T4;
     lT4 = T4 * orig; 
     if coordon == 1
@@ -137,7 +137,7 @@ function standford6dof( varargin )
     
     % Joint 4
 
-    T5 = DHtrans(theta4, 0, 0, pi/2);
+    T5 = DHtrans(theta4, 0, 0, -pi/2);
     T5 = T4 * T5;
     lT5 = T5 * orig; 
     if coordon == 1
