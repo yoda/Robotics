@@ -1,36 +1,36 @@
-function varargout = standford3dofPLAY(varargin)
-% STANDFORD3DOFPLAY M-file for standford3dofPLAY.fig
-%      STANDFORD3DOFPLAY, by itself, creates a new STANDFORD3DOFPLAY or raises the existing
+function varargout = standford6dofPLAY(varargin)
+% STANDFORD6DOFPLAY M-file for standford6dofPLAY.fig
+%      STANDFORD6DOFPLAY, by itself, creates a new STANDFORD6DOFPLAY or raises the existing
 %      singleton*.
 %
-%      H = STANDFORD3DOFPLAY returns the handle to a new STANDFORD3DOFPLAY or the handle to
+%      H = STANDFORD6DOFPLAY returns the handle to a new STANDFORD6DOFPLAY or the handle to
 %      the existing singleton*.
 %
-%      STANDFORD3DOFPLAY('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in STANDFORD3DOFPLAY.M with the given input arguments.
+%      STANDFORD6DOFPLAY('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in STANDFORD6DOFPLAY.M with the given input arguments.
 %
-%      STANDFORD3DOFPLAY('Property','Value',...) creates a new STANDFORD3DOFPLAY or raises the
+%      STANDFORD6DOFPLAY('Property','Value',...) creates a new STANDFORD6DOFPLAY or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before standford3dofPLAY_OpeningFcn gets called.  An
+%      applied to the GUI before standford6dofPLAY_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to standford3dofPLAY_OpeningFcn via varargin.
+%      stop.  All inputs are passed to standford6dofPLAY_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help standford3dofPLAY
+% Edit the above text to modify the response to help standford6dofPLAY
 
-% Last Modified by GUIDE v2.5 15-Mar-2010 07:28:07
+% Last Modified by GUIDE v2.5 15-Mar-2010 11:42:43
 
 % Begin initialization code - DO NOT EDIT
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @standford3dofPLAY_OpeningFcn, ...
-                   'gui_OutputFcn',  @standford3dofPLAY_OutputFcn, ...
+                   'gui_OpeningFcn', @standford6dofPLAY_OpeningFcn, ...
+                   'gui_OutputFcn',  @standford6dofPLAY_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -46,15 +46,15 @@ end
 
 
 
-% --- Executes just before standford3dofPLAY is made visible.
-function standford3dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before standford6dofPLAY is made visible.
+function standford6dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to standford3dofPLAY (see VARARGIN)
+% varargin   command line arguments to standford6dofPLAY (see VARARGIN)
 
-% Choose default command line output for standford3dofPLAY
+% Choose default command line output for standford6dofPLAY
 handles.output = hObject;
 
 % Update handles structure
@@ -64,12 +64,18 @@ pData.radincrement = pi/20;
 
 pData.joint1 = 0;
 pData.joint2 = 0;
+pData.joint3 = 0;
+pData.joint4 = 0;
+pData.joint5 = 0;
 pData.d3extend = pData.radincrement * 20;
 pData.revolveX = 0;
 pData.revolveY = 0;
 
 pData.joint1b = 0;
 pData.joint2b = 0;
+pData.joint3b = 0;
+pData.joint4b = 0;
+pData.joint5b = 0;
 pData.d3extendb = 0;
 pData.revolveb = 0;
 
@@ -77,14 +83,14 @@ pData.revolveb = 0;
 %rotate3d on; %doesnt work!
 setappdata(hObject, 'paramData', pData);
 value = pData;
-standford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
+standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d3extend,'coordframe', 1);
 
-% UIWAIT makes standford3dofPLAY wait for user response (see UIRESUME)
+% UIWAIT makes standford6dofPLAY wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = standford3dofPLAY_OutputFcn(hObject, eventdata, handles) 
+function varargout = standford6dofPLAY_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -113,16 +119,49 @@ if strcmp(eventdata.Key, '1')
 elseif strcmp(eventdata.Key, '2')
     value.joint1b = 0;
     value.joint2b = 1;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 0;
     value.d3extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '3')
     value.joint1b = 0;
     value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 0;
     value.d3extendb = 1;
+    value.revolveb = 0;
+elseif strcmp(eventdata.Key, '4')
+    value.joint1b = 0;
+    value.joint2b = 0;
+    value.joint3b = 1;
+    value.joint4b = 0;
+    value.joint5b = 0;
+    value.d3extendb = 0;
+    value.revolveb = 0;
+elseif strcmp(eventdata.Key, '5')
+    value.joint1b = 0;
+    value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 1;
+    value.joint5b = 0;
+    value.d3extendb = 0;
+    value.revolveb = 0;
+elseif strcmp(eventdata.Key, '6')
+    value.joint1b = 0;
+    value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 1;
+    value.d3extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, 'v')
     value.joint1b = 0;
     value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 0;
     value.d3extendb = 0;
     value.revolveb = 1;
 end
@@ -139,6 +178,30 @@ elseif value.joint2b == 1
         value.joint2 = value.joint2 - value.radincrement;
     elseif strcmp(eventdata.Key, 'uparrow')
         value.joint2 = value.joint2 + value.radincrement;
+    elseif strcmp(eventdata.Key, 'rightarrow')
+    elseif strcmp(eventdata.Key, 'leftarrow')
+    end
+elseif value.joint3b == 1
+    if strcmp(eventdata.Key, 'downarrow')
+        value.joint3 = value.joint3 - value.radincrement;
+    elseif strcmp(eventdata.Key, 'uparrow')
+        value.joint3 = value.joint3 + value.radincrement;
+    elseif strcmp(eventdata.Key, 'rightarrow')
+    elseif strcmp(eventdata.Key, 'leftarrow')
+    end
+elseif value.joint4b == 1
+    if strcmp(eventdata.Key, 'downarrow')
+        value.joint4 = value.joint4 - value.radincrement;
+    elseif strcmp(eventdata.Key, 'uparrow')
+        value.joint4 = value.joint4 + value.radincrement;
+    elseif strcmp(eventdata.Key, 'rightarrow')
+    elseif strcmp(eventdata.Key, 'leftarrow')
+    end
+elseif value.joint5b == 1
+    if strcmp(eventdata.Key, 'downarrow')
+        value.joint5 = value.joint5 - value.radincrement;
+    elseif strcmp(eventdata.Key, 'uparrow')
+        value.joint5 = value.joint5 + value.radincrement;
     elseif strcmp(eventdata.Key, 'rightarrow')
     elseif strcmp(eventdata.Key, 'leftarrow')
     end
@@ -165,5 +228,5 @@ elseif value.revolveb == 1
     end
 end
 clf(gcf)
-standford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
+standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d3extend,'coordframe', 1);
 setappdata(hObject, 'paramData', value);
