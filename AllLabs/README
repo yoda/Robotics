@@ -1,1 +1,18 @@
 Robotics Work
+
+Lab2: 
+rotx, roty, rotz, trans and plotframe
+
+Lab3:
+DHtrans, puma3dof and stanford3dof
+
+Lab5 (Six degrees of freedom):
+standford6dof, INVSTANFORD6DOF, INVEULER, INVHT
+
+Lab6 (Bezier Curves):
+-
+
+Lab7 (Jacobian):
+It is this version of stanford6dof that is required for your portfolio. 
+The function stanfordmrcntrl will be upgraded in Lab 9 for final inclusion 
+in your portfolio.
