@@ -1,11 +1,12 @@
 % Function to plot 4 vectors from an origin and applying a
 % transformation/rotation. Returns a figure plot.
 %
-% Usage:  puma3dof(theta1, theta2, d3)
+% Usage:  standford3dof(theta1, theta2, d3)
 % Where:  
 %         theta1
 %         theta2
 %         d3
+%         'coordframe', (true/false) *optional
 %         
 %         Returns a figure plot.
 function standford3dof( varargin )
@@ -19,6 +20,7 @@ function standford3dof( varargin )
         p.addRequired('theta1', @(a)isnumeric(a));
         p.addRequired('theta2', @(a)isnumeric(a));
         p.addRequired('d3', @(a)isnumeric(a));
+        % inputParser Parameter being true (1) or false (0).
         p.addParamValue('coordframe', [],@(y)(y==0 || y==1));
         
 
@@ -32,10 +34,6 @@ function standford3dof( varargin )
         if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
             warning('standford3dof takes 4 numeric parameters')
         end
-        % Must be a numeric
-%        if strcmp(exception.identifier, 'MATLAB:InputParser:ArgumentFailedValidation')
-%            error('Bad arguement, must be a numeric symbol')
-%        end
         % Does not allow parameters (inputParser parameters)
         if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
             error('Bad arguement, must be a numeric symbol')
@@ -55,11 +53,14 @@ function standford3dof( varargin )
     d3 = p.Results.d3;
     coordon = p.Results.coordframe;
     
+    % Join thickness
     cyllinkradius = 0.3;
     cyljointradius = 0.6;
     
+    % Figure Shading
     colormap(copper);
     
+    % Figure settings
     XMIN = -10;
     XMAX = 10;
     YMIN = -10;

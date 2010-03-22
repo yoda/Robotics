@@ -1,5 +1,5 @@
-% Function to plot 4 vectors from an origin and applying a
-% transformation/rotation. Returns a figure plot.
+% Function to create a Denevit hartenberg transformation
+% matrix. Returns the transformation matrix.
 %
 % Usage:  DHtrans(theta, offset, length, twist)
 % T = rotz(theta) * trans(0,0,offset) * trans(length,0,0) * rotx(twist);
@@ -13,7 +13,7 @@
 %         len is length of the links stretching from the origin.
 %         label is a string appended to the 'x', 'y', 'z' labels.
 %         
-%         Returns a figure plot.
+%         Returns a 4x4 matrix.
 function [ T ] = DHtrans( varargin )
     p = inputParser;
         % All numerics are valid
@@ -29,14 +29,10 @@ function [ T ] = DHtrans( varargin )
         catch exception
              disp(exception.identifier); % Debug catching correct errors
              rethrow(exception)
-            % Only three numeric
+            % Only 4 numeric
             if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
                 warning('DHtrans takes 4 numeric parameters')
             end
-            % Must be a numeric
-    %        if strcmp(exception.identifier, 'MATLAB:InputParser:ArgumentFailedValidation')
-    %            error('Bad arguement, must be a numeric symbol')
-    %        end
             % Does not allow parameters (inputParser parameters)
             if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
                 error('Bad arguement, must be a numeric symbol')

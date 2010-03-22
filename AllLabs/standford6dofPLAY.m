@@ -68,6 +68,7 @@ pData.joint3 = 0;
 pData.joint4 = 0;
 pData.joint5 = 0;
 pData.d3extend = pData.radincrement * 20;
+pData.d2extend = pData.radincrement * 10;
 pData.revolveX = 0;
 pData.revolveY = 0;
 
@@ -77,13 +78,14 @@ pData.joint3b = 0;
 pData.joint4b = 0;
 pData.joint5b = 0;
 pData.d3extendb = 0;
+pData.d3extendb = 0;
 pData.revolveb = 0;
 
 
 %rotate3d on; %doesnt work!
 setappdata(hObject, 'paramData', pData);
 value = pData;
-standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d3extend,'coordframe', 1);
+standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d2extend, value.d3extend,'coordframe', 1);
 
 % UIWAIT makes standford6dofPLAY wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -114,6 +116,10 @@ disp(eventdata.Key);
 if strcmp(eventdata.Key, '1')
     value.joint1b = 1;
     value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 0;
+    value.d2extendb = 0;
     value.d3extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '2')
@@ -122,6 +128,7 @@ elseif strcmp(eventdata.Key, '2')
     value.joint3b = 0;
     value.joint4b = 0;
     value.joint5b = 0;
+    value.d2extendb = 0;
     value.d3extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '3')
@@ -130,6 +137,7 @@ elseif strcmp(eventdata.Key, '3')
     value.joint3b = 0;
     value.joint4b = 0;
     value.joint5b = 0;
+    value.d2extendb = 0;
     value.d3extendb = 1;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '4')
@@ -138,6 +146,7 @@ elseif strcmp(eventdata.Key, '4')
     value.joint3b = 1;
     value.joint4b = 0;
     value.joint5b = 0;
+    value.d2extendb = 0;
     value.d3extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '5')
@@ -147,6 +156,7 @@ elseif strcmp(eventdata.Key, '5')
     value.joint4b = 1;
     value.joint5b = 0;
     value.d3extendb = 0;
+    value.d2extendb = 0;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, '6')
     value.joint1b = 0;
@@ -155,6 +165,16 @@ elseif strcmp(eventdata.Key, '6')
     value.joint4b = 0;
     value.joint5b = 1;
     value.d3extendb = 0;
+    value.d2extendb = 0;
+    value.revolveb = 0;
+elseif strcmp(eventdata.Key, '7')
+    value.joint1b = 0;
+    value.joint2b = 0;
+    value.joint3b = 0;
+    value.joint4b = 0;
+    value.joint5b = 0;
+    value.d3extendb = 0;
+    value.d2extendb = 1;
     value.revolveb = 0;
 elseif strcmp(eventdata.Key, 'v')
     value.joint1b = 0;
@@ -163,6 +183,7 @@ elseif strcmp(eventdata.Key, 'v')
     value.joint4b = 0;
     value.joint5b = 0;
     value.d3extendb = 0;
+    value.d2extendb = 0;
     value.revolveb = 1;
 end
 if value.joint1b == 1
@@ -216,6 +237,17 @@ elseif value.d3extendb == 1
     elseif strcmp(eventdata.Key, 'rightarrow')
     elseif strcmp(eventdata.Key, 'leftarrow')
     end
+elseif value.d2extendb == 1
+    if strcmp(eventdata.Key, 'downarrow')
+        value.d2extend = value.d2extend - value.radincrement;
+        if value.d2extend < 0
+            value.d2extend = 0;
+        end
+    elseif strcmp(eventdata.Key, 'uparrow')
+        value.d2extend = value.d2extend + value.radincrement;
+    elseif strcmp(eventdata.Key, 'rightarrow')
+    elseif strcmp(eventdata.Key, 'leftarrow')
+    end
 elseif value.revolveb == 1
     if strcmp(eventdata.Key, 'downarrow')
         value.revolveY = value.revolveY + value.radincrement;
@@ -228,5 +260,5 @@ elseif value.revolveb == 1
     end
 end
 clf(gcf)
-standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d3extend,'coordframe', 1);
+standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d2extend,value.d3extend,'coordframe', 1);
 setappdata(hObject, 'paramData', value);

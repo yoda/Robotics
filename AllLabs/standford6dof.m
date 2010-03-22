@@ -1,17 +1,27 @@
-% Function to plot 4 vectors from an origin and applying a
-% transformation/rotation. Returns a figure plot.
+% Function to plot a standford manipulator arm
+% with 3 variables representing aspects of the transformation/rotation. 
+% Returns a figure plot.
 %
-% Usage:  puma3dof(theta1, theta2, d3)
+% Usage:  standford6dof(theta1, theta2, theta3, theta4, theta5,
+%                       d3, d2,
+%                       'coordframe', true or false (1 or 0))
 % Where:  
-%         theta1
-%         theta2
-%         d3
+%         theta1 - base rotation
+%         theta2 - first joint rotation
+%         theta3 - second joint rotation
+%         theta4 - third joint rotation
+%         theta5 - fourth joint rotation
+%
+%         d3 - extension
+%         d2 - extension
 %         
+%         'coordframe', 1 or 0 - turns off the axes.
+%
 %         Returns a figure plot.
-function standford6dof( varargin )
+function T = standford6dof( varargin )
 
-    d1 = 5; 
-    d2 = 2;
+    d1 = 5; % base offset 
+    d2 = 2; % manipulator arm offset
     
     orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 
@@ -23,6 +33,8 @@ function standford6dof( varargin )
         p.addRequired('theta4', @(a)isnumeric(a));
         p.addRequired('theta5', @(a)isnumeric(a));
         p.addRequired('d3', @(a)isnumeric(a));
+        p.addRequired('d2', @(a)isnumeric(a));
+        % True or false, none is false
         p.addParamValue('coordframe', [],@(y)(y==0 || y==1));
         
 
@@ -34,12 +46,8 @@ function standford6dof( varargin )
          rethrow(exception)
         % Only three numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
-            warning('standford3dof takes 4 numeric parameters')
+            warning('standford6dof takes 4 numeric parameters')
         end
-        % Must be a numeric
-%        if strcmp(exception.identifier, 'MATLAB:InputParser:ArgumentFailedValidation')
-%            error('Bad arguement, must be a numeric symbol')
-%        end
         % Does not allow parameters (inputParser parameters)
         if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
             error('Bad arguement, must be a numeric symbol')
@@ -50,26 +58,34 @@ function standford6dof( varargin )
         end
         % Must have a numeric parameter
         if strcmp(exception.identifier, 'MATLAB:minrhs')
-            error('standford3dof takes 4 numeric parameters')
+            error('standford6dof takes 4 numeric parameters')
         end 
     end
 
+    % Angles
     theta1 = p.Results.theta1;
     theta2 = p.Results.theta2;
     theta3 = p.Results.theta3;
     theta4 = p.Results.theta4;
     theta5 = p.Results.theta5;
     
+    % Lengths
     d3 = p.Results.d3;
+    d2 = p.Results.d2;
+    
+    % Axes on?
     coordon = p.Results.coordframe;
     
+    % Joint settings / manipulator settings
     cylmanipulatorarmradius = 0.1;
     cylmanipulatorbarradius = 0.3;
     cyllinkradius = 0.3;
     cyljointradius = 0.6;
     
+    % Figure Shading
     colormap(copper);
     
+    % Figure Settings
     XMIN = -10;
     XMAX = 10;
     YMIN = -10;
@@ -167,5 +183,7 @@ function standford6dof( varargin )
     xcylinder(cylmanipulatorbarradius, -0.5, 0.5,0.1, 20, T6); % point 2 to point 3
     zcylinder(cylmanipulatorarmradius, 0, 0.5,0.1, 20, T6 * trans(0.5, 0, 0)); % point 2 to point 3
     zcylinder(cylmanipulatorarmradius, 0, 0.5,0.1, 20, T6 * trans(-0.5, 0, 0)); % point 2 to point 3
+    
+    T = T6;
 end
 
