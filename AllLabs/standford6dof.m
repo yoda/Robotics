@@ -21,7 +21,6 @@
 function T = standford6dof( varargin )
 
     d1 = 5; % base offset 
-    d2 = 2; % manipulator arm offset
     
     orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 
@@ -46,7 +45,7 @@ function T = standford6dof( varargin )
          rethrow(exception)
         % Only three numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
-            warning('standford6dof takes 4 numeric parameters')
+            warning('standford6dof takes 7 numeric parameters')
         end
         % Does not allow parameters (inputParser parameters)
         if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
@@ -58,7 +57,7 @@ function T = standford6dof( varargin )
         end
         % Must have a numeric parameter
         if strcmp(exception.identifier, 'MATLAB:minrhs')
-            error('standford6dof takes 4 numeric parameters')
+            error('standford6dof takes 7 numeric parameters')
         end 
     end
 
