@@ -24,11 +24,11 @@
 %                                       pi/2,
 %                                       3,
 %                                       2,
-%                                       'coordframe', 1) # T
+%                                       'coordframe', 0) # T
 %                       ,3 # offset1
 %                       ,2) # offset2
 %
-function joint = invstanford6dof(varargin)
+function joint = invstandford6dof(varargin)
 
 p = inputParser;
 
@@ -61,6 +61,18 @@ catch exception
         error('invstandford6dof takes 3 parameters')
     end 
 end
+clf;
+% Figure Settings
+XMIN = -10;
+XMAX = 10;
+YMIN = -10;
+YMAX = 10;
+ZMIN = 0;
+ZMAX = 10;
+axis equal;                            % make x y and z tick sizes equal
+axis([XMIN XMAX YMIN YMAX ZMIN ZMAX]); % set ranges in x y and z
+hold on;                               % freeze the current axis settings
+grid on;
 
 d1 = 5; % base offset 
 
@@ -71,12 +83,14 @@ T6 = p.Results.T;
 
 % Base (Link 1, Joint 1)
 T1 = DHtrans(0, d1, 0, pi/2); % theta1 missing
+plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'});
 disp('T1');
 disp(T1);
 
 % Joint 2
 T2 = DHtrans(0, 0, 0, -pi/2); % theta2 missing
 T2 = T1 * T2;
+plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
 disp('T2');
 disp(T2);
 
@@ -89,15 +103,28 @@ disp(T3);
 % Joint 3
 T4 = DHtrans(0, 0, 0, pi/2); % theta3 missing
 T4 = T3 * T4;
+plotframe(T4, 'len', 2, 'label', {'-3', '-3', '-3'});
 disp('T4');
 disp(T4);
 
 % Joint 4
 T5 = DHtrans(0, 0, 0, -pi/2); % theta4 missing
 T5 = T4 * T5;
+plotframe(T5, 'len', 2, 'label', {'-4', '-4', '-4'});
 disp('T5');
 disp(T5);
 
 % Joint 5
 disp('T6');
+plotframe(T6, 'len', 2, 'label', {'-5', '-5', '-5'});
 disp(T6);
+
+
+xcylinder(0.1, -0.1, 0.1,1, 20, T6);
+
+orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
+col1temp = (T6 * orig);
+col1 = [col1temp(1,1);col1temp(2,1);col1temp(3,1);col1temp(4,1)];
+
+disp('Final Position');
+disp(col1);
