@@ -61,7 +61,7 @@ catch exception
         error('invstandford6dof takes 3 parameters')
     end 
 end
-clf;
+
 % Figure Settings
 XMIN = -10;
 XMAX = 10;
@@ -89,30 +89,32 @@ disp(T1);
 
 % Joint 2
 T2 = DHtrans(0, 0, 0, -pi/2); % theta2 missing
-T2 = T1 * T2;
+
 plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
 disp('T2');
 disp(T2);
 
 % Link 2
 T3 = DHtrans(0, offset1, 0, 0);
-T3 = T2 * T3;
+
 disp('T3');
 disp(T3);
 
 % Joint 3
 T4 = DHtrans(0, 0, 0, pi/2); % theta3 missing
-T4 = T3 * T4;
+
 plotframe(T4, 'len', 2, 'label', {'-3', '-3', '-3'});
 disp('T4');
 disp(T4);
 
 % Joint 4
 T5 = DHtrans(0, 0, 0, -pi/2); % theta4 missing
-T5 = T4 * T5;
+
 plotframe(T5, 'len', 2, 'label', {'-4', '-4', '-4'});
 disp('T5');
 disp(T5);
+
+T7 = DHtrans(pi/2,offset2,0,0);
 
 % Joint 5
 disp('T6');
@@ -128,3 +130,73 @@ col1 = [col1temp(1,1);col1temp(2,1);col1temp(3,1);col1temp(4,1)];
 
 disp('Final Position');
 disp(col1);
+disp('Tentative Position');
+disp(T1' * col1);
+xcylinder(0.1, -0.1, 0.1,1, 20, T7'*T6);
+
+T6Px = T6(1,4);
+T6Py = T6(2,4);
+T6Pz = T6(3,4);
+
+disp('Manipulator');
+disp(T6Px);
+disp(T6Py);
+disp(T6Pz);
+
+disp('Joint 3');
+T3Px = T6Px - (T6(1,3) * offset2);
+T3Py = T6Py - (T6(2,3) * offset2);
+T3Pz = T6Pz - (T6(3,3) * offset2);
+disp(T3Px);
+disp(T3Py);
+disp(T3Pz);
+disp('or');
+%J3 = [[0;0;0;T3Px],[1;0;0;T3Py],[0;1;0;T3Pz],[0;0;1;1]];
+J3 = [T3Px; T3Py; T3Pz; 1];
+disp(T1' * J3);
+
+% This is the wrist of the robot
+%  x y z p
+%  _ _ _ T3Px
+%  _ _ _ T3Py
+%  _ _ _ T3Pz
+%
+
+
+
+% disp('Origin');
+% disp(T6);
+% 
+% disp('Back without angle');
+% intermit = T1'*col1;
+% disp(intermit);
+% d_2 = intermit(3,1); % d2 
+% disp('d2');
+% disp(d_2);
+% 
+% Px = T6(1,4);
+% Py = T6(2,4);
+% Pz = T6(3,4);
+% disp('Px');
+% disp(Px);
+% disp('Py');
+% disp(Py);
+% disp('Pz');
+% disp(Pz);
+% 
+% 
+% r = sqrt(Px^2 + Py^2);
+% 
+% theta1_1 = atan2(Py, Px) - atan2(d_2, sqrt(r^2 - d_2^2));
+% theta1_2 = atan2(Py, Px) - atan2(d_2, -sqrt(r^2 - d_2^2));
+% disp('Positive----------');
+% disp('Radians');
+% disp(theta1_1);
+% disp('Degrees');
+% disp(radtodeg(theta1_1));
+% disp('Negative----------');
+% disp('Radians');
+% disp(theta1_2);
+% disp('Degrees');
+% disp(radtodeg(theta1_2));
+% 

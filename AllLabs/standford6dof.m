@@ -31,8 +31,8 @@ function T = standford6dof( varargin )
         p.addRequired('theta3', @(a)isnumeric(a));
         p.addRequired('theta4', @(a)isnumeric(a));
         p.addRequired('theta5', @(a)isnumeric(a));
-        p.addRequired('d3', @(a)isnumeric(a));
         p.addRequired('d2', @(a)isnumeric(a));
+        p.addRequired('d3', @(a)isnumeric(a));
         % True or false, none is false
         p.addParamValue('coordframe', [],@(y)(y==0 || y==1));
         
@@ -76,10 +76,10 @@ function T = standford6dof( varargin )
     coordon = p.Results.coordframe;
     
     % Joint settings / manipulator settings
-    cylmanipulatorarmradius = 0.1;
-    cylmanipulatorbarradius = 0.3;
-    cyllinkradius = 0.3;
-    cyljointradius = 0.6;
+    cylmanipulatorarmradius = 0.01;
+    cylmanipulatorbarradius = 0.02;
+    cyllinkradius = 0.01;
+    cyljointradius = 0.01;
     
     % Figure Shading
     colormap(copper);

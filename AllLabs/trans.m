@@ -2,7 +2,7 @@
 % negative and positive angles.
 %
 % Usage:  result = trans(x, y, z)
-% Where:  x, y and z being a numeric value.
+% Where:  x, y and z being a numeric value or a symbolic.
 %
 %         result = 4x4 Matrix representing the specified
 %         translation.
@@ -11,30 +11,30 @@ function [T] = trans(varargin)
     % Parse the parameter to make sure its within the constraints
     p = inputParser;
     % All numerics are valid
-    p.addRequired('x', @(a)isa(a, 'numeric'));
-    p.addRequired('y', @(a)isa(a, 'numeric'));
-    p.addRequired('z', @(a)isa(a, 'numeric'));
+    p.addRequired('x', @(a)isa(a, 'numeric') || isa(a, 'sym'));
+    p.addRequired('y', @(a)isa(a, 'numeric') || isa(a, 'sym'));
+    p.addRequired('z', @(a)isa(a, 'numeric') || isa(a, 'sym'));
     
     try
         % Do the validation of the parameters
         p.parse(varargin{:});
     catch exception
-        % disp(exception.identifier); % Debug catching correct errors
+         disp(exception.identifier); % Debug catching correct errors
         % Only three numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
-            warning('trans takes 3 numeric parameters')
+            warning('trans takes 3 numeric or symbolic parameters')
         end
         % Must be a numeric
         if strcmp(exception.identifier, 'MATLAB:InputParser:ArgumentFailedValidation')
-            error('Bad arguement, must be a numeric symbol')
+            error('Bad arguement, must be a numeric or symbol')
         end
         % Does not allow parameters (inputParser parameters)
         if strcmp(exception.identifier, 'MATLAB:InputParser:MustBeChar')
-            error('Bad arguement, must be a numeric symbol')
+            error('Bad arguement, must be a numeric or symbol')
         end
         % Does not allow parameters (inputParser parameters)
         if strcmp(exception.identifier, 'MATLAB:InputParser:ParamMissingValue')
-            error('Bad arguement, must be a numeric symbol')
+            error('Bad arguement, must be a numeric pr symbol')
         end
         % Must have a numeric parameter
         if strcmp(exception.identifier, 'MATLAB:minrhs')

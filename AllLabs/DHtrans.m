@@ -17,10 +17,10 @@
 function [ T ] = DHtrans( varargin )
     p = inputParser;
         % All numerics are valid
-        p.addRequired('theta', @(a)isnumeric(a));
-        p.addRequired('offset', @(a)isnumeric(a));
-        p.addRequired('length', @(a)isnumeric(a));
-        p.addRequired('twist', @(a)isnumeric(a));
+        p.addRequired('theta', @(a)isnumeric(a) || isa(a, 'sym'));
+        p.addRequired('offset', @(a)isnumeric(a) || isa(a, 'sym'));
+        p.addRequired('length', @(a)isnumeric(a) || isa(a, 'sym'));
+        p.addRequired('twist', @(a)isnumeric(a) || isa(a, 'sym'));
         
 
         try
