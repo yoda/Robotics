@@ -10,13 +10,15 @@
 %           0                 0                      0                 1           ];
 % Where:  
 %         T is the transformation/rotation matrix.
-%         len is length of the links stretching from the origin.
-%         label is a string appended to the 'x', 'y', 'z' labels.
+%         theta is the rotation required
+%         offset is the offset required
+%         length is the length required
+%         twist is the twist required
 %         
 %         Returns a 4x4 matrix.
 function [ T ] = DHtrans( varargin )
     p = inputParser;
-        % All numerics are valid
+        % All numeric and symbolics are valid
         p.addRequired('theta', @(a)isnumeric(a) || isa(a, 'sym'));
         p.addRequired('offset', @(a)isnumeric(a) || isa(a, 'sym'));
         p.addRequired('length', @(a)isnumeric(a) || isa(a, 'sym'));
