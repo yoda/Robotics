@@ -1,0 +1,159 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	font: georgia;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body {
+	background-color: #DCE2E3;
+}
+#container {
+	margin-top: 10px;
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#header {
+	height: 50px;
+	min-height: 50px;
+	padding-top: 20px;
+}
+
+#header h1 {text-align:center}
+#header h2 {text-align:center}
+
+
+#navigation
+{
+background: #DCE2E3;
+margin-left: auto;
+margin-right: auto;
+padding: 1em 0 0 0;
+}
+
+/* to stretch the container div to contain floated list */
+#navigation:after
+{
+content: ".";
+display: block;
+line-height: 1px;
+font-size: 1px;
+clear: both;
+border-bottom: 1px solid #F0F4F7;
+}
+
+ul#navlist
+{
+list-style: none;
+padding: 0;
+margin: 0 auto;
+width: 80%;
+font-size: 0.8em;
+}
+
+ul#navlist li
+{
+display: block;
+float: left;
+width: 16%;
+margin: 0;
+padding: 0;
+}
+
+ul#navlist li a
+{
+display: block;
+width: 100%;
+padding: 0.5em;
+border-width: 1px;
+border-color: #ffe #aaab9c #ccc #fff;
+border-style: solid;
+color: #442200;
+text-decoration: none;
+text-align: center;
+background: #C6CCCB;
+}
+
+#navigation>ul#navlist li a { width: auto; }
+
+ul#navlist li#active a
+{
+background: #EBEFF2;
+color: #800000;
+}
+
+ul#navlist li a:hover, ul#navlist li#active a:hover
+{
+color: #800000;
+background: transparent;
+border-color: #aaab9c #fff #fff #ccc;
+}
+
+
+#content {
+	min-height: 100px;
+	margin-top: 20px;
+}
+
+.pic {
+	text-align:center;
+	display:block;
+}
+
+#content img {
+	align: middle;
+	border: solid 1px;
+}
+
+#footer {
+	margin-top: 50px;
+	font-size: 0.7em;
+	height: 100px;
+	min-height: 100px;
+}
