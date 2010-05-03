@@ -80,49 +80,8 @@ offset1 = p.Results.offset1;
 offset2 = p.Results.offset2;
 
 T6 = p.Results.T;
-
-% Base (Link 1, Joint 1)
-T1 = DHtrans(0, d1, 0, pi/2); % theta1 missing
-plotframe(T1, 'len', 2, 'label', {'-1', '-1', '-1'});
-disp('T1');
-disp(T1);
-
-% Joint 2
-T2 = DHtrans(0, 0, 0, -pi/2); % theta2 missing
-
-plotframe(T2, 'len', 2, 'label', {'-2', '-2', '-2'});
-disp('T2');
-disp(T2);
-
-% Link 2
-T3 = DHtrans(0, offset1, 0, 0);
-
-disp('T3');
-disp(T3);
-
-% Joint 3
-T4 = DHtrans(0, 0, 0, pi/2); % theta3 missing
-
-plotframe(T4, 'len', 2, 'label', {'-3', '-3', '-3'});
-disp('T4');
-disp(T4);
-
-% Joint 4
-T5 = DHtrans(0, 0, 0, -pi/2); % theta4 missing
-
-plotframe(T5, 'len', 2, 'label', {'-4', '-4', '-4'});
-disp('T5');
-disp(T5);
-
-T7 = DHtrans(pi/2,offset2,0,0);
-
-% Joint 5
-disp('T6');
-plotframe(T6, 'len', 2, 'label', {'-5', '-5', '-5'});
+disp('T6 Bitches');
 disp(T6);
-
-
-xcylinder(0.1, -0.1, 0.1,1, 20, T6);
 
 orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 col1temp = (T6 * orig);
@@ -130,9 +89,6 @@ col1 = [col1temp(1,1);col1temp(2,1);col1temp(3,1);col1temp(4,1)];
 
 disp('Final Position');
 disp(col1);
-disp('Tentative Position');
-disp(T1' * col1);
-xcylinder(0.1, -0.1, 0.1,1, 20, T7'*T6);
 
 T6Px = T6(1,4);
 T6Py = T6(2,4);
@@ -143,6 +99,34 @@ disp(T6Px);
 disp(T6Py);
 disp(T6Pz);
 
+% n, s , a (National Security Agency)
+%orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
+
+%T6 = T6*orig;
+disp('ns');
+nx = T6(1,1);
+disp(nx);
+ny = T6(2,1);
+disp(ny);
+nz = T6(3,1);
+disp(nz);
+
+disp('ss');
+sx = T6(1,2);
+disp(sx);
+sy = T6(2,2);
+disp(sy);
+sz = T6(3,2);
+disp(sz);
+
+disp('as');
+ax = T6(1,3);
+disp(ax);
+ay = T6(2,3);
+disp(ay);
+az = T6(3,3);
+disp(az);
+
 disp('Joint 3');
 T3Px = T6Px - (T6(1,3) * offset2);
 T3Py = T6Py - (T6(2,3) * offset2);
@@ -150,7 +134,7 @@ T3Pz = T6Pz - (T6(3,3) * offset2);
 disp(T3Px);
 disp(T3Py);
 disp(T3Pz);
-%J3 = [[0;0;0;T3Px],[1;0;0;T3Py],[0;1;0;T3Pz],[0;0;1;1]];
+
 J3 = [T3Px; T3Py; T3Pz; 1];
 
 d3 = sqrt((T3Px - 0)^2 + (T3Py - 0)^2 + (T3Pz - d1)^2);
@@ -171,51 +155,28 @@ disp('Theta1');
 % Can be opposite by 180 degrees
 disp(theta1);
 
+theta3 = 0;
+disp('Theta3');
+disp(theta3)
+
+% from col3 equating with inv of T0T3
+
+d = -ax * cos(theta1) * sin(theta2) - ay * sin(theta1) * sin(theta2) + az * cos(theta2);
+theta5 = atan((sqrt(1 - d^2)/d));
+disp('Theta5');
+disp(theta5);
+
+% from row2,col1,2 equating with inv of T0T3
+
+k = ax * sin(theta1) - ay * cos(theta1);
+i = -ax * cos(theta1) * cos(theta2) - ay * cos(theta2) * sin(theta1) - az * sin(theta2);
+theta4 = atan2(k, i);
+disp('Theta4');
+disp(theta4);
 
 
-
-% This is the wrist of the robot
-%  x y z p
-%  _ _ _ T3Px
-%  _ _ _ T3Py
-%  _ _ _ T3Pz
-%
-
-
-
-% disp('Origin');
-% disp(T6);
-% 
-% disp('Back without angle');
-% intermit = T1'*col1;
-% disp(intermit);
-% d_2 = intermit(3,1); % d2 
-% disp('d2');
-% disp(d_2);
-% 
-% Px = T6(1,4);
-% Py = T6(2,4);
-% Pz = T6(3,4);
-% disp('Px');
-% disp(Px);
-% disp('Py');
-% disp(Py);
-% disp('Pz');
-% disp(Pz);
-% 
-% 
-% r = sqrt(Px^2 + Py^2);
-% 
-% theta1_1 = atan2(Py, Px) - atan2(d_2, sqrt(r^2 - d_2^2));
-% theta1_2 = atan2(Py, Px) - atan2(d_2, -sqrt(r^2 - d_2^2));
-% disp('Positive----------');
-% disp('Radians');
-% disp(theta1_1);
-% disp('Degrees');
-% disp(radtodeg(theta1_1));
-% disp('Negative----------');
-% disp('Radians');
-% disp(theta1_2);
-% disp('Degrees');
-% disp(radtodeg(theta1_2));
-% 
+m = -cos(theta1) * sin(theta2) * nx - sin(theta1) * sin(theta2) * ny + cos(theta2) * nz;
+n = cos(theta1) * sin(theta2) * sx + sin(theta1) * sin(theta2) * sy - cos(theta2) * sz;
+theta6 = atan2(n,m);
+disp('Theta6');
+disp(theta6);

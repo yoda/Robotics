@@ -76,10 +76,10 @@ function T = standford6dof( varargin )
     coordon = p.Results.coordframe;
     
     % Joint settings / manipulator settings
-    cylmanipulatorarmradius = 0.01;
-    cylmanipulatorbarradius = 0.02;
-    cyllinkradius = 0.01;
-    cyljointradius = 0.01;
+    cylmanipulatorarmradius = 0.2;
+    cylmanipulatorbarradius = 0.3;
+    cyllinkradius = 0.4;
+    cyljointradius = 0.5;
     
     % Figure Shading
     colormap(copper);
@@ -124,7 +124,7 @@ function T = standford6dof( varargin )
     
     % Link 3 
     
-    T3 = DHtrans(0, d3, 0, 0);
+    T3 = DHtrans(0, d2, 0, 0);
     T3 = T2 * T3;
     lT3 = T3 * orig;
     if coordon == 1
@@ -136,7 +136,7 @@ function T = standford6dof( varargin )
    % B = [lT3(1,1), lT3(2,1), lT3(3,1)];
    % q = sqrt((A(1)-B(1))^2 + (A(2)-B(2))^2 + (A(3)-B(3))^2);
     
-    xcylinder(cyllinkradius, 0, -d3,0.1, 20, T3 * roty(pi/2) * rotz(pi)); % point 2 to point 3
+    xcylinder(cyllinkradius, 0, -d2,0.1, 20, T3 * roty(pi/2) * rotz(pi)); % point 2 to point 3
  
     
     % Joint 3
@@ -164,7 +164,7 @@ function T = standford6dof( varargin )
     
     % Link 4 Joint 5
     
-    T6 = DHtrans(theta5, d2, 0, 0);
+    T6 = DHtrans(theta5, d3, 0, 0);
     T6 = T5 * T6;
     lT6 = T6 * orig; 
     if coordon == 1
@@ -176,7 +176,7 @@ function T = standford6dof( varargin )
    % D = [lT6(1,1), lT6(2,1), lT6(3,1)];
    % r = sqrt((C(1)-D(1))^2 + (C(2)-D(2))^2 + (C(3)-D(3))^2);
     
-    xcylinder(cyllinkradius, 0, d2,0.1, 20, T6 * roty(pi/2)); % point 2 to point 3
+    xcylinder(cyllinkradius, 0, d3,0.1, 20, T6 * roty(pi/2)); % point 2 to point 3
     
     % Manipulator
     xcylinder(cylmanipulatorbarradius, -0.5, 0.5,0.1, 20, T6); % point 2 to point 3
