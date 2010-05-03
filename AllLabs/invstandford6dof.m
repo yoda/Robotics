@@ -159,7 +159,18 @@ c2 = (T3Pz - d1) / d3;
 theta2 = atan(sqrt(1 - c2^2)/c2);
 
 disp('Theta2');
+% Can be positive or negative of the same value depending on theta1
 disp(theta2);
+
+c = d3 - c2 * (T3Pz - d1);
+a = -sin(theta2) * T3Px;
+b = -sin(theta2) * T3Py;
+
+theta1 = atan2(b, a) + atan(sqrt(a^2 + b^2 - c^2) / c);
+disp('Theta1');
+% Can be opposite by 180 degrees
+disp(theta1);
+
 
 
 
