@@ -150,10 +150,18 @@ T3Pz = T6Pz - (T6(3,3) * offset2);
 disp(T3Px);
 disp(T3Py);
 disp(T3Pz);
-disp('or');
 %J3 = [[0;0;0;T3Px],[1;0;0;T3Py],[0;1;0;T3Pz],[0;0;1;1]];
 J3 = [T3Px; T3Py; T3Pz; 1];
-disp(T1' * J3);
+
+d3 = sqrt((T3Px - 0)^2 + (T3Py - 0)^2 + (T3Pz - d1)^2);
+
+c2 = (T3Pz - d1) / d3;
+theta2 = atan(sqrt(1 - c2^2)/c2);
+
+disp('Theta2');
+disp(theta2);
+
+
 
 % This is the wrist of the robot
 %  x y z p
