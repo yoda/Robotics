@@ -155,6 +155,11 @@ disp('Theta1');
 % Can be opposite by 180 degrees
 disp(theta1);
 
+
+% If theta 1 is negative then theta2 must be negative.
+theta2 = theta2;
+    
+
 theta3 = 0;
 disp('Theta3');
 disp(theta3)
@@ -163,8 +168,13 @@ disp(theta3)
 
 d = -ax * cos(theta1) * sin(theta2) - ay * sin(theta1) * sin(theta2) + az * cos(theta2);
 theta5 = atan((sqrt(1 - d^2)/d));
+
 disp('Theta5');
 disp(theta5);
+disp('Theta52');
+disp(theta52);
+
+
 
 % from row2,col1,2 equating with inv of T0T3
 
@@ -173,10 +183,25 @@ i = -ax * cos(theta1) * cos(theta2) - ay * cos(theta2) * sin(theta1) - az * sin(
 theta4 = atan2(k, i);
 disp('Theta4');
 disp(theta4);
+theta42 = atan2(-k, -i);
 
 
 m = -cos(theta1) * sin(theta2) * nx - sin(theta1) * sin(theta2) * ny + cos(theta2) * nz;
 n = cos(theta1) * sin(theta2) * sx + sin(theta1) * sin(theta2) * sy - cos(theta2) * sz;
 theta6 = atan2(n,m);
+theta62 = atan2(-n,-m);
 disp('Theta6');
 disp(theta6);
+disp('Theta62');
+disp(theta62);
+
+joint = [[theta1, theta2, theta3, theta4, theta5, theta6]
+         [theta1, theta2, theta3, theta4, theta5, atan2(-n,-m)]
+         []
+         []
+         []
+         []
+         []
+         []
+         []]
+    
