@@ -1,36 +1,36 @@
-function varargout = standford3dofPLAY(varargin)
-% STANDFORD3DOFPLAY M-file for standford3dofPLAY.fig
-%      STANDFORD3DOFPLAY, by itself, creates a new STANDFORD3DOFPLAY or raises the existing
+function varargout = stanford3dofPLAY(varargin)
+% stanford3DOFPLAY M-file for stanford3dofPLAY.fig
+%      stanford3DOFPLAY, by itself, creates a new stanford3DOFPLAY or raises the existing
 %      singleton*.
 %
-%      H = STANDFORD3DOFPLAY returns the handle to a new STANDFORD3DOFPLAY or the handle to
+%      H = stanford3DOFPLAY returns the handle to a new stanford3DOFPLAY or the handle to
 %      the existing singleton*.
 %
-%      STANDFORD3DOFPLAY('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in STANDFORD3DOFPLAY.M with the given input arguments.
+%      stanford3DOFPLAY('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in stanford3DOFPLAY.M with the given input arguments.
 %
-%      STANDFORD3DOFPLAY('Property','Value',...) creates a new STANDFORD3DOFPLAY or raises the
+%      stanford3DOFPLAY('Property','Value',...) creates a new stanford3DOFPLAY or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before standford3dofPLAY_OpeningFcn gets called.  An
+%      applied to the GUI before stanford3dofPLAY_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to standford3dofPLAY_OpeningFcn via varargin.
+%      stop.  All inputs are passed to stanford3dofPLAY_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help standford3dofPLAY
+% Edit the above text to modify the response to help stanford3dofPLAY
 
-% Last Modified by GUIDE v2.5 15-Mar-2010 07:28:07
+% Last Modified by GUIDE v2.5 24-May-2010 12:38:50
 
 % Begin initialization code - DO NOT EDIT
 
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @standford3dofPLAY_OpeningFcn, ...
-                   'gui_OutputFcn',  @standford3dofPLAY_OutputFcn, ...
+                   'gui_OpeningFcn', @stanford3dofPLAY_OpeningFcn, ...
+                   'gui_OutputFcn',  @stanford3dofPLAY_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -46,15 +46,15 @@ end
 
 
 
-% --- Executes just before standford3dofPLAY is made visible.
-function standford3dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before stanford3dofPLAY is made visible.
+function stanford3dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to standford3dofPLAY (see VARARGIN)
+% varargin   command line arguments to stanford3dofPLAY (see VARARGIN)
 
-% Choose default command line output for standford3dofPLAY
+% Choose default command line output for stanford3dofPLAY
 handles.output = hObject;
 
 % Update handles structure
@@ -77,14 +77,14 @@ pData.revolveb = 0;
 %rotate3d on; %doesnt work!
 setappdata(hObject, 'paramData', pData);
 value = pData;
-standford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
+stanford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
 
-% UIWAIT makes standford3dofPLAY wait for user response (see UIRESUME)
+% UIWAIT makes stanford3dofPLAY wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = standford3dofPLAY_OutputFcn(hObject, eventdata, handles) 
+function varargout = stanford3dofPLAY_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -165,5 +165,15 @@ elseif value.revolveb == 1
     end
 end
 clf(gcf)
-standford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
+stanford3dof(value.joint1,value.joint2,value.d3extend,'coordframe', 1);
 setappdata(hObject, 'paramData', value);
+
+
+% --- Executes on key press with focus on figure1 and none of its controls.
+function figure1_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  structure with the following fields (see FIGURE)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)

@@ -28,7 +28,7 @@
 %                       ,3 # offset1
 %                       ,2) # offset2
 %
-function joint = invstandford6dof(varargin)
+function joint = invstanford6dof(varargin)
 
 p = inputParser;
 

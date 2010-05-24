@@ -61,11 +61,11 @@ function standford3dof( varargin )
     colormap(copper);
     
     % Figure settings
-    XMIN = -10;
-    XMAX = 10;
-    YMIN = -10;
-    YMAX = 10;
-    ZMIN = -10;
+    XMIN = -5;
+    XMAX = 5;
+    YMIN = -5;
+    YMAX = 5;
+    ZMIN = 0;
     ZMAX = 10;
     axis equal;                            % make x y and z tick sizes equal
     axis([XMIN XMAX YMIN YMAX ZMIN ZMAX]); % set ranges in x y and z
