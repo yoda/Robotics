@@ -45,21 +45,47 @@ CP = p.Results.CP;
 
 clf;
 % Figure Settings
-XMIN = 0;
-XMAX = 5;
-YMIN = 0;
-YMAX = 5;
+
 axis equal;                            % make x y and z tick sizes equal
-axis([XMIN XMAX YMIN YMAX]); % set ranges in x y and z
 grid on;
 hold on;
 
-plot(CP(:,1), CP(:,2), 'X');
-x = 0;
-while x <= 1,
-    P = bezier(x, CP);
-    plot(P(1), P(2), '.');
-    x = x + dt;
+
+
+[n, m] = size(CP);
+
+if m == 2
+    plot(CP(:,1), CP(:,2), 'X');
+    x = 0;
+    while x <= 1,
+        P = bezier(x, CP);
+        plot(P(1), P(2), '.');
+        x = x + dt;
+    end
+end
+
+if m == 3
+  %  plot3(CP(:,1), CP(:,2), CP(:,3), 'X');
+    x = 0;
+    %P = zeros(1/dt, m);
+    %V = zeros(1/dt, m);
+    P = [];
+    V = [];
+    
+
+    while x <= 1,
+        P(end +1, :) = bezier(x, CP);
+        %V(end +1, :) = norm();
+        x = x + dt;
+    end
+    
+    for y = 1:1:length(P)-1,
+        V(end +1, :) = norm(P(y,:) - P(y+1,:));
+    end
+    %V(end +1, :) = norm(P(end, :) - P(end-1, :));
+    
+    subplot(1,2,1), plot3(P(:, 1), P(:, 2), P(:, 3), '.'), title('trajectory');
+    subplot(1,2,2), plot([0:length(V)-1],V), title('velocity');
 end
 
 end
