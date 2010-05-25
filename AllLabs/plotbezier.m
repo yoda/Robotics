@@ -44,8 +44,13 @@ dt = p.Results.dt;
 CP = p.Results.CP;
 
 clf;
-
+% Figure Settings
+XMIN = 0;
+XMAX = 5;
+YMIN = 0;
+YMAX = 5;
 axis equal;                            % make x y and z tick sizes equal
+axis([XMIN XMAX YMIN YMAX]); % set ranges in x y and z
 grid on;
 hold on;
 
@@ -53,7 +58,7 @@ plot(CP(:,1), CP(:,2), 'X');
 x = 0;
 while x <= 1,
     P = bezier(x, CP);
-    plot(P(:, 2), P(:, 1), '.');
+    plot(P(1), P(2), '.');
     x = x + dt;
 end
 
