@@ -74,9 +74,9 @@ axis([XMIN XMAX YMIN YMAX ZMIN ZMAX]); % set ranges in x y and z
 hold on;                               % freeze the current axis settings
 grid on;
 
-d1 = 5; % base offset 
 
-offset1 = p.Results.offset1;
+
+d1 = p.Results.offset1;
 offset2 = p.Results.offset2;
 
 T6 = p.Results.T;
@@ -139,11 +139,12 @@ J3 = [T3Px; T3Py; T3Pz; 1];
 
 d3 = sqrt((T3Px - 0)^2 + (T3Py - 0)^2 + (T3Pz - d1)^2);
 
+disp('d3');
+disp(d3);
+
 c2 = (T3Pz - d1) / d3;
 theta2 = atan(sqrt(1 - c2^2)/c2);
-theta22 = 0; % solution 2
-theta23 = 0; % solution 3
-theta24 = 0; % solution 4
+theta22 = atan(-sqrt(1 - c2^2)/c2); % solution 2
 
 disp('Theta2');
 % Can be positive or negative of the same value depending on theta1
@@ -153,19 +154,24 @@ c = d3 - c2 * (T3Pz - d1);
 a = -sin(theta2) * T3Px;
 b = -sin(theta2) * T3Py;
 
+
 theta1 = atan2(b, a) + atan(sqrt(a^2 + b^2 - c^2) / c);
-theta12 = 0; % solution 2
-theta13 = 0; % solution 3
-theta14 = 0; % solution 4
+theta1 = real(theta1); % fuck off imaginary.
+if theta1 < 0,
+    theta12 = theta1 + pi;
+else 
+    theta12 = theta1 - pi;
+end
+
 disp('Theta1');
 % Can be opposite by 180 degrees
 disp(theta1);
     
 
 theta3 = 0;
-theta32 = 0; % solution 2
-theta33 = 0; % solution 3
-theta34 = 0; % solution 4
+
+
+
 disp('Theta3');
 disp(theta3)
 
@@ -173,9 +179,9 @@ disp(theta3)
 
 d = -ax * cos(theta1) * sin(theta2) - ay * sin(theta1) * sin(theta2) + az * cos(theta2);
 theta5 = atan((sqrt(1 - d^2)/d)); % solution 1
-theta52 = 0; % solution 2
-theta53 = 0; % solution 3
-theta54 = 0; % solution 4
+theta52 = atan((-sqrt(1 - d^2)/d)); % solution 2
+
+
 
 disp('Theta5');
 disp(theta5);
@@ -192,15 +198,15 @@ theta4 = atan2(k, i);
 disp('Theta4');
 disp(theta4);
 theta42 = atan2(-k, -i); % solution 2
-theta43 = 0; % solution 3
-theta44 = 0; % solution 4
+
+
 
 m = -cos(theta1) * sin(theta2) * nx - sin(theta1) * sin(theta2) * ny + cos(theta2) * nz;
 n = cos(theta1) * sin(theta2) * sx + sin(theta1) * sin(theta2) * sy - cos(theta2) * sz;
 theta6 = atan2(n,m); % solution 1
 theta62 = atan2(-n,-m); % solution 2
-theta63 = 0; % solution 3
-theta64 = 0; % solution 4
+
+
 disp('Theta6');
 disp(theta6);
 disp('Theta62');
@@ -208,7 +214,15 @@ disp(theta62);
 
 
 joint = [[theta1, theta2, theta3, theta4, theta5, theta6]
-         [theta12, theta22, theta32, theta42, theta52, theta62]
-         [theta13, theta23, theta33, theta43, theta53, theta63]
-         [theta14, theta24, theta34, theta44, theta54, theta64]]
+         [theta1, theta2, theta3, theta4, theta5, theta62]
+         [theta1, theta2, theta3, theta42, theta52, theta6]
+         [theta1, theta2, theta3, theta42, theta52, theta62]
+         [theta12, theta22, theta3, theta4, theta52, theta6]
+         [theta12, theta22, theta3, theta4, theta52, theta62]
+         [theta12, theta22, theta3, theta42, theta5, theta6]
+         [theta12, theta22, theta3, theta42, theta5, theta62]];
+     
+for j = 1:1:8,
+    stanford6dof(joint(j,1), joint(j,2), joint(j,4), joint(j,5), joint(j,6), d3, offset2, 'coordframe', 1);
+end
     

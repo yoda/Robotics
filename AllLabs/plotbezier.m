@@ -60,16 +60,16 @@ if m == 2
     V = [];
     
 
-    while x <= 1,
-        P(end +1, :) = bezier(x, CP); 
-        x = x + dt;
+    for t = 0:dt:1
+        P(end +1, :) = bezier(t, CP);
     end
     
     for y = 1:1:length(P)-1,
         V(end +1, :) = norm(P(y,:) - P(y+1,:));
     end
     
-    subplot(1,2,1), plot(P(:, 1), P(:, 2), '.'), title('trajectory');
+    subplot(1,2,1), plot(P(:, 1), P(:, 2),'LineStyle','none', 'Marker', '.', 'MarkerEdgeColor','r'), title('trajectory');
+    
     subplot(1,2,2), plot(0:length(V)-1,V), title('velocity');
     return
 end
@@ -80,10 +80,8 @@ if m == 3
     P = [];
     V = [];
     
-
-    while x <= 1,
-        P(end +1, :) = bezier(x, CP);
-        x = x + dt;
+    for t = 0:dt:1
+        P(end +1, :) = bezier(t, CP);
     end
     
     for y = 1:1:length(P)-1,
@@ -91,9 +89,8 @@ if m == 3
     end
 
     
-    subplot(1,2,1), plot3(P(:, 1), P(:, 2), P(:, 3), '.'), title('trajectory');
+    subplot(1,2,1), plot3(P(:, 1), P(:, 2), P(:, 3),'LineStyle','none', 'Marker', '.', 'MarkerEdgeColor','r' ), title('trajectory');
     subplot(1,2,2), plot(0:length(V)-1,V), title('velocity');
     return
 end
-
 end

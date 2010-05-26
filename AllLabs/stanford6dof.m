@@ -184,5 +184,7 @@ function T = standford6dof( varargin )
     zcylinder(cylmanipulatorarmradius, 0, 0.5,0.1, 20, T6 * trans(-0.5, 0, 0)); % point 2 to point 3
     
     T = T6;
+    disp('=======================================');
+    disp(T);
 end
 

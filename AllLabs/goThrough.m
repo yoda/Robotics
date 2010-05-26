@@ -21,8 +21,8 @@ try
     % Do the validation of the parameters
     p.parse(varargin{:});
 catch exception
-     disp(exception.identifier); % Debug catching correct errors
-     rethrow(exception)
+    disp(exception.identifier); % Debug catching correct errors
+    rethrow(exception)
     % Only three numeric
     if strcmp(exception.identifier, 'MATLAB:InputParser:UnmatchedParameter')
         warning('bezier takes 2 parameters')
@@ -38,8 +38,15 @@ catch exception
     % Must have a numeric parameter
     if strcmp(exception.identifier, 'MATLAB:minrhs')
         error('bezier takes 2 parameters')
-    end 
+    end
 end
 vel = p.Results.vel;
 CP = p.Results.CP;
 P = p.Results.P;
+
+CP = [  CP
+        P - vel/3
+        P
+        P
+        P + vel/3 ];
+end
