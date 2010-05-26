@@ -54,10 +54,6 @@ for i = 0:1:n-1,
     for j = 1:1:m,  
         P(j) = P(j) + nchoosek(n-1, i) * (1-t)^(n-1-i) * t^i * CP(i+1, j);
     end
-    %A(i,2) = nchoosek(n, i-1) * (1-t)^(n-(i-1)) * t^(i-1) * CP(i, 2);
-    %A(i+1, 3) = nchoosek(n, i) * (1-t)^(N-i) * t^i * CP(i+1, 3);    
 end
 
-disp('P:');
-disp(P);
 end
