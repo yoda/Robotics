@@ -69,7 +69,7 @@ if m == 2
         V(end +1, :) = norm(P(y,:) - P(y+1,:));
     end
     
-    subplot(1,2,1), plot3(P(:, 1), P(:, 2), P(:, 3), '.'), title('trajectory');
+    subplot(1,2,1), plot(P(:, 1), P(:, 2), '.'), title('trajectory');
     subplot(1,2,2), plot(0:length(V)-1,V), title('velocity');
     return
 end
