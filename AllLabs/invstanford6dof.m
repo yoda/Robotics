@@ -80,75 +80,75 @@ d1 = p.Results.offset1;
 offset2 = p.Results.offset2;
 
 T6 = p.Results.T;
-disp('T6 Bitches');
-disp(T6);
+% disp('T6 Bitches');
+% disp(T6);
 
 orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 col1temp = (T6 * orig);
 col1 = [col1temp(1,1);col1temp(2,1);col1temp(3,1);col1temp(4,1)];
 
-disp('Final Position');
-disp(col1);
+% disp('Final Position');
+% disp(col1);
 
 T6Px = T6(1,4);
 T6Py = T6(2,4);
 T6Pz = T6(3,4);
 
-disp('Manipulator');
-disp(T6Px);
-disp(T6Py);
-disp(T6Pz);
+% disp('Manipulator');
+% disp(T6Px);
+% disp(T6Py);
+% disp(T6Pz);
 
 % n, s , a (National Security Agency)
 %orig = [[0;0;0;1],[1;0;0;1],[0;1;0;1],[0;0;1;1]];
 
 %T6 = T6*orig;
-disp('ns');
+% disp('ns');
 nx = T6(1,1);
-disp(nx);
+% disp(nx);
 ny = T6(2,1);
-disp(ny);
+% disp(ny);
 nz = T6(3,1);
-disp(nz);
+% disp(nz);
 
-disp('ss');
+% disp('ss');
 sx = T6(1,2);
-disp(sx);
+% disp(sx);
 sy = T6(2,2);
-disp(sy);
+% disp(sy);
 sz = T6(3,2);
-disp(sz);
+% disp(sz);
 
-disp('as');
+% disp('as');
 ax = T6(1,3);
-disp(ax);
+% disp(ax);
 ay = T6(2,3);
-disp(ay);
+% disp(ay);
 az = T6(3,3);
-disp(az);
+% disp(az);
 
-disp('Joint 3');
+% disp('Joint 3');
 T3Px = T6Px - (T6(1,3) * offset2);
 T3Py = T6Py - (T6(2,3) * offset2);
 T3Pz = T6Pz - (T6(3,3) * offset2);
-disp(T3Px);
-disp(T3Py);
-disp(T3Pz);
+% disp(T3Px);
+% disp(T3Py);
+% disp(T3Pz);
 
 J3 = [T3Px; T3Py; T3Pz; 1];
 
 d3 = sqrt((T3Px - 0)^2 + (T3Py - 0)^2 + (T3Pz - d1)^2);
 
-disp('d3');
-disp(d3);
+% disp('d3');
+% disp(d3);
 
 c2 = (T3Pz - d1) / d3;
 theta2 = atan(sqrt(1 - c2^2)/c2);
 theta22 = atan(-sqrt(1 - c2^2)/c2); % solution 2
 
-disp('Theta2');
+% disp('Theta2');
 % Can be positive or negative of the same value depending on theta1
-disp(theta2);
+% disp(theta2);
 
 c = d3 - c2 * (T3Pz - d1);
 a = -sin(theta2) * T3Px;
@@ -163,17 +163,17 @@ else
     theta12 = theta1 - pi;
 end
 
-disp('Theta1');
+% disp('Theta1');
 % Can be opposite by 180 degrees
-disp(theta1);
+% disp(theta1);
     
 
 theta3 = 0;
 
 
 
-disp('Theta3');
-disp(theta3)
+% disp('Theta3');
+% disp(theta3)
 
 % from col3 equating with inv of T0T3
 
@@ -183,10 +183,10 @@ theta52 = atan((-sqrt(1 - d^2)/d)); % solution 2
 
 
 
-disp('Theta5');
-disp(theta5);
-disp('Theta52');
-disp(theta52);
+% disp('Theta5');
+% disp(theta5);
+% disp('Theta52');
+% disp(theta52);
 
 
 
@@ -195,8 +195,8 @@ disp(theta52);
 k = ax * sin(theta1) - ay * cos(theta1);
 i = -ax * cos(theta1) * cos(theta2) - ay * cos(theta2) * sin(theta1) - az * sin(theta2);
 theta4 = atan2(k, i);
-disp('Theta4');
-disp(theta4);
+% disp('Theta4');
+% disp(theta4);
 theta42 = atan2(-k, -i); % solution 2
 
 
@@ -207,10 +207,10 @@ theta6 = atan2(n,m); % solution 1
 theta62 = atan2(-n,-m); % solution 2
 
 
-disp('Theta6');
-disp(theta6);
-disp('Theta62');
-disp(theta62);
+% disp('Theta6');
+% disp(theta6);
+% disp('Theta62');
+% disp(theta62);
 
 
 joint = [[theta1, theta2, theta3, theta4, theta5, theta6]
@@ -222,7 +222,8 @@ joint = [[theta1, theta2, theta3, theta4, theta5, theta6]
          [theta12, theta22, theta3, theta42, theta5, theta6]
          [theta12, theta22, theta3, theta42, theta5, theta62]];
      
-for j = 1:1:8,
-    stanford6dof(joint(j,1), joint(j,2), joint(j,4), joint(j,5), joint(j,6), d3, offset2, 'coordframe', 1);
-end
+% Test fnc    
+% for j = 1:1:8,
+%     stanford6dof(joint(j,1), joint(j,2), joint(j,4), joint(j,5), joint(j,6), d3, offset2, 'coordframe', 1);
+% end
     

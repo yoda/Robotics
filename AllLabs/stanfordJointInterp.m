@@ -1,4 +1,4 @@
-function stanfordJointInterp(varargin)
+function M = stanfordJointInterp(varargin)
 % Function to perform joint space interpolation control of a stanford type robot
 % arm.  
 %
@@ -59,3 +59,35 @@ offset = p.Results.offset;
 initialJoints = p.Results.initialJoints;
 Tfinal = p.Results.Tfinal;
 dt = p.Results.dt;
+
+Tstart = stanford6dof(  initialJoints(1), initialJoints(2), initialJoints(4), initialJoints(5), initialJoints(6), offset(1), offset(2), 'coordframe', 1);
+
+
+jointArray = invstanford6dof(Tfinal, offset(1), offset(2));
+disp(jointArray);
+
+
+closestJoints = bestJoints(jointArray, initialJoints);
+
+CP = [initialJoints; initialJoints; closestJoints; closestJoints];
+
+
+P = [];
+
+for t = 0:dt:1
+    P(end +1, :) = bezier(t, CP);
+end
+
+[nn,mm] = size(P);
+clf;
+M(nn) = getframe;
+for x = 1:1:nn,
+    
+    BJ = P(x,:);
+    clf;
+    stanford6dof(BJ(1), BJ(2), BJ(4), BJ(5), BJ(6), offset(1), offset(2), 'coordframe', 0);
+    M(x) = getframe;
+    
+end
+
+
