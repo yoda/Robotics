@@ -60,7 +60,7 @@ initialJoints = p.Results.initialJoints;
 Tfinal = p.Results.Tfinal;
 dt = p.Results.dt;
 
-Tstart = stanford6dof(  initialJoints(1), initialJoints(2), initialJoints(4), initialJoints(5), initialJoints(6), offset(1), offset(2), 'coordframe', 1);
+Tstart = stanford6dof(  initialJoints(1), initialJoints(2), initialJoints(3), initialJoints(4), initialJoints(5), initialJoints(6), offset(1), offset(2), 'coordframe', 1);
 
 
 jointArray = invstanford6dof(Tfinal, offset(1), offset(2));
@@ -85,7 +85,7 @@ for x = 1:1:nn,
     
     BJ = P(x,:);
     clf;
-    stanford6dof(BJ(1), BJ(2), BJ(4), BJ(5), BJ(6), offset(1), offset(2), 'coordframe', 0);
+    stanford6dof(BJ(1), BJ(2), BJ(3), BJ(4), BJ(5), BJ(6), offset(1), offset(2), 'coordframe', 0);
     M(x) = getframe;
     
 end

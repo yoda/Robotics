@@ -224,6 +224,6 @@ joint = [[theta1, theta2, theta3, theta4, theta5, theta6]
      
 % Test fnc    
 % for j = 1:1:8,
-%     stanford6dof(joint(j,1), joint(j,2), joint(j,4), joint(j,5), joint(j,6), d3, offset2, 'coordframe', 1);
+%     stanford6dof(joint(j,1), joint(j,2), joint(j,3), joint(j,4), joint(j,5), joint(j,6), d3, offset2, 'coordframe', 1);
 % end
     

@@ -1,5 +1,5 @@
-function varargout = standford6dofPLAY(varargin)
-% STANDFORD6DOFPLAY M-file for standford6dofPLAY.fig
+function varargout = stanford6dofPLAY(varargin)
+% STANDFORD6DOFPLAY M-file for stanford6dofPLAY.fig
 %      STANDFORD6DOFPLAY, by itself, creates a new STANDFORD6DOFPLAY or raises the existing
 %      singleton*.
 %
@@ -11,16 +11,16 @@ function varargout = standford6dofPLAY(varargin)
 %
 %      STANDFORD6DOFPLAY('Property','Value',...) creates a new STANDFORD6DOFPLAY or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before standford6dofPLAY_OpeningFcn gets called.  An
+%      applied to the GUI before stanford6dofPLAY_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to standford6dofPLAY_OpeningFcn via varargin.
+%      stop.  All inputs are passed to stanford6dofPLAY_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help standford6dofPLAY
+% Edit the above text to modify the response to help stanford6dofPLAY
 
 % Last Modified by GUIDE v2.5 15-Mar-2010 11:42:43
 
@@ -29,8 +29,8 @@ function varargout = standford6dofPLAY(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @standford6dofPLAY_OpeningFcn, ...
-                   'gui_OutputFcn',  @standford6dofPLAY_OutputFcn, ...
+                   'gui_OpeningFcn', @stanford6dofPLAY_OpeningFcn, ...
+                   'gui_OutputFcn',  @stanford6dofPLAY_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -46,15 +46,15 @@ end
 
 
 
-% --- Executes just before standford6dofPLAY is made visible.
-function standford6dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before stanford6dofPLAY is made visible.
+function stanford6dofPLAY_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to standford6dofPLAY (see VARARGIN)
+% varargin   command line arguments to stanford6dofPLAY (see VARARGIN)
 
-% Choose default command line output for standford6dofPLAY
+% Choose default command line output for stanford6dofPLAY
 handles.output = hObject;
 
 % Update handles structure
@@ -85,14 +85,14 @@ pData.revolveb = 0;
 %rotate3d on; %doesnt work!
 setappdata(hObject, 'paramData', pData);
 value = pData;
-standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d2extend, value.d3extend,'coordframe', 1);
+stanford6dof(value.joint1,value.joint2,0,value.joint3,value.joint4,value.joint5,value.d2extend, value.d3extend,'coordframe', 1);
 
-% UIWAIT makes standford6dofPLAY wait for user response (see UIRESUME)
+% UIWAIT makes stanford6dofPLAY wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = standford6dofPLAY_OutputFcn(hObject, eventdata, handles) 
+function varargout = stanford6dofPLAY_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -260,5 +260,5 @@ elseif value.revolveb == 1
     end
 end
 clf(gcf)
-standford6dof(value.joint1,value.joint2,value.joint3,value.joint4,value.joint5,value.d2extend,value.d3extend,'coordframe', 1);
+stanford6dof(value.joint1,value.joint2,0,value.joint3,value.joint4,value.joint5,value.d2extend,value.d3extend,'coordframe', 1);
 setappdata(hObject, 'paramData', value);

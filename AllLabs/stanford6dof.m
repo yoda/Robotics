@@ -31,6 +31,7 @@ function T = standford6dof( varargin )
         p.addRequired('theta3', @(a)isnumeric(a));
         p.addRequired('theta4', @(a)isnumeric(a));
         p.addRequired('theta5', @(a)isnumeric(a));
+        p.addRequired('theta6', @(a)isnumeric(a));
         p.addRequired('d2', @(a)isnumeric(a));
         p.addRequired('d3', @(a)isnumeric(a));
         % True or false, none is false
@@ -64,9 +65,9 @@ function T = standford6dof( varargin )
     % Angles
     theta1 = p.Results.theta1;
     theta2 = p.Results.theta2;
-    theta3 = p.Results.theta3;
     theta4 = p.Results.theta4;
     theta5 = p.Results.theta5;
+    theta6 = p.Results.theta6;
     
     % Lengths
     d3 = p.Results.d3;
@@ -140,7 +141,7 @@ function T = standford6dof( varargin )
  
     
     % Joint 3
-    T4 = DHtrans(theta3, 0, 0, pi/2);
+    T4 = DHtrans(theta4, 0, 0, pi/2);
     T4 = T3 * T4;
     lT4 = T4 * orig; 
     if coordon == 1
@@ -152,7 +153,7 @@ function T = standford6dof( varargin )
     
     % Joint 4
 
-    T5 = DHtrans(theta4, 0, 0, -pi/2);
+    T5 = DHtrans(theta5, 0, 0, -pi/2);
     T5 = T4 * T5;
     lT5 = T5 * orig; 
     if coordon == 1
@@ -164,7 +165,7 @@ function T = standford6dof( varargin )
     
     % Link 4 Joint 5
     
-    T6 = DHtrans(theta5, d3, 0, 0);
+    T6 = DHtrans(theta6, d3, 0, 0);
     T6 = T5 * T6;
     lT6 = T6 * orig; 
     if coordon == 1
