@@ -54,6 +54,26 @@ hold on;
 
 [n, m] = size(CP);
 
+if m == 1
+    x = 0;
+    P = [];
+    V = [];
+    
+
+    for t = 0:dt:1
+        P(end +1, :) = bezier(t, CP);
+    end
+    
+    for y = 1:1:length(P)-1,
+        V(end +1, :) = norm(P(y,:) - P(y+1,:));
+    end
+    
+    subplot(1,2,1), plot(P(:, 1),'LineStyle','none', 'Marker', '.', 'MarkerEdgeColor','r'), title('trajectory');
+    
+    subplot(1,2,2), plot(0:length(V)-1,V), title('velocity');
+    return
+end
+
 if m == 2
     x = 0;
     P = [];
